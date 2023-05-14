@@ -6,6 +6,7 @@ const generatePdf = async (req, res) => {
     // Create a browser instance
     const browser = await puppeteer.launch({
       headless: "new",
+      args: ["--no-sandbox"], // Add this line to pass the --no-sandbox flag
     });
 
     // Create a new page
