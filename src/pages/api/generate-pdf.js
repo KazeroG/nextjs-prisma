@@ -30,14 +30,17 @@ const generatePdf = async (req, res) => {
     // Close the browser instance
     await browser.close();
 
-    // Save the PDF locally
-    const filePath = "../../../public/pdfs/techsolutionstuff.pdf";
-    fs.writeFileSync(filePath, pdfBuffer);
+    // Create a writable stream
+    const writableStream = fs.createWriteStream("output.pdf");
 
-    res.status(200).send("PDF saved successfully");
+    // Pipe the PDF buffer to the writable stream
+    writableStream.write(pdfBuffer);
+
+    res.status(200).send("PDF saved temporarily in the browser cache");
   } catch (error) {
     console.error(error);
     res.status(500).send("An error occurred while generating the PDF");
   }
 };
+
 export default generatePdf;
