@@ -1,6 +1,4 @@
-import { Buffer } from "buffer";
 import puppeteer from "puppeteer";
-import fs from "fs";
 
 const generatePdf = async (req, res) => {
   try {
@@ -30,13 +28,15 @@ const generatePdf = async (req, res) => {
     // Close the browser instance
     await browser.close();
 
-    // Create a writable stream
-    const writableStream = fs.createWriteStream("output.pdf");
+    // Set response headers for file download
+    res.set({
+      "Content-Type": "application/pdf",
+      "Content-Disposition": "attachment; filename=output.pdf",
+      "Content-Length": pdfBuffer.length,
+    });
 
-    // Pipe the PDF buffer to the writable stream
-    writableStream.write(pdfBuffer);
-
-    res.status(200).send("PDF saved temporarily in the browser cache");
+    // Send the PDF buffer as the response
+    res.send(pdfBuffer);
   } catch (error) {
     console.error(error);
     res.status(500).send("An error occurred while generating the PDF");
