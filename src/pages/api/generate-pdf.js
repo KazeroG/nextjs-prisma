@@ -40,5 +40,4 @@ const generatePdf = async (req, res) => {
     res.status(500).send("An error occurred while generating the PDF");
   }
 };
-
 export default generatePdf;
