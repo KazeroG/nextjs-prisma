@@ -31,7 +31,7 @@ const generatePdf = async (req, res) => {
     await browser.close();
 
     // Save the PDF locally
-    const filePath = "public/pdfs/techsolutionstuff.pdf";
+    const filePath = "../../../public/pdfs/techsolutionstuff.pdf";
     fs.writeFileSync(filePath, pdfBuffer);
 
     res.status(200).send("PDF saved successfully");
