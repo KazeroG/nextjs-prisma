@@ -29,11 +29,9 @@ const generatePdf = async (req, res) => {
     await browser.close();
 
     // Set response headers for file download
-    res.set({
-      "Content-Type": "application/pdf",
-      "Content-Disposition": "attachment; filename=output.pdf",
-      "Content-Length": pdfBuffer.length,
-    });
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", "attachment; filename=output.pdf");
+    res.setHeader("Content-Length", pdfBuffer.length);
 
     // Send the PDF buffer as the response
     res.send(pdfBuffer);
